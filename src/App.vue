@@ -1,22 +1,26 @@
 <template>
-  <div id="app" :class="{slide: isSlide}">
-    <!--<link rel="shortcut icon" type="image/png" href="../assets/images/favicon.png"/>-->
-    <!-- <div class="app__overlay" ref="overlay"></div> -->
-    <loading-component></loading-component>
-    <navigation-component></navigation-component>
-    <!-- <full-menu-component></full-menu-component> -->
-    <!-- <transition v-on:after-enter="enter" v-on:leave="leave" v-on:before-leave="beforeLeave" mode="out-in"> -->
-    <transition name="fade" mode="out-in">
-      <router-view></router-view>
-    </transition>
-    <div class="landscape-warning">
-      <img src="./assets/images/landscape.svg"/>
-      <span>Please rotate your device to portrait view to continue browsing.</span>
-    </div>
-    <popup-component v-bind:openedClass="$root.counterPopup" v-on:close="closePopup" class="popup-counter">
-      <popup-counter-component></popup-counter-component>
-    </popup-component>
-  </div>
+ <div id="app" :class="{slide: isSlide}">
+      <localizer>
+         <navbar />
+         <!--<link rel="shortcut icon" type="image/png" href="../assets/images/favicon.png"/>-->
+         <!-- <div class="app__overlay" ref="overlay"></div> -->
+         <loading-component></loading-component>
+         <navigation-component></navigation-component>
+         <!-- <full-menu-component></full-menu-component> -->
+         <!-- <transition v-on:after-enter="enter" v-on:leave="leave" v-on:before-leave="beforeLeave" mode="out-in"> -->
+         <transition name="fade" mode="out-in">
+            <router-view></router-view>
+         </transition>
+         <div class="landscape-warning">
+            <img src="./assets/images/landscape.svg"/>
+            <span>Please rotate your device to portrait view to continue browsing.</span>
+         </div>
+         <popup-component v-bind:openedClass="$root.counterPopup" v-on:close="closePopup" class="popup-counter">
+            <popup-counter-component></popup-counter-component>
+         </popup-component>
+      </localizer>
+   </div>
+
 </template>
 
 <script>
@@ -25,6 +29,8 @@ import NavigationComponent from './components/Navigation.vue'
 import FullMenuComponent from './components/FullMenu.vue'
 import PopupComponent from './components/Popup.vue'
 import PopupCounterComponent from './components/PopupCounter.vue'
+import Navbar from './components/Navbar'
+import Localizer from './components/Localizer'
 
 import { TweenMax, Linear } from 'gsap'
 import 'ScrollTo'
@@ -465,10 +471,18 @@ export default {
     FullMenuComponent,
     NavigationComponent,
     PopupComponent,
-    PopupCounterComponent
+    PopupCounterComponent,
+    Localizer,
+    navbar: Navbar,
   }
 }
 </script>
+
+<style scoped>
+    .app-wrapper {
+        margin-top: 85px;
+    }
+</style>
 
 <style lang="scss">
 @import "assets/styles/reset.scss";
